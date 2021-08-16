@@ -1,0 +1,42 @@
+﻿@page "/shots"
+@using CodeClap.Tagger.Components
+@using CodeClap.Tagger.Shots
+@using Humanizer
+@inject ShotStore ShotStore
+
+<h1>Shots</h1>
+
+<IconButton Appearance="Success" Text="New shot" Href="/shots/new" Icon="add"></IconButton>
+
+@foreach (var tag in Tags)
+{
+<div class="card mb-2">
+    <div class="card-body">
+        <h5 class="card-title">@tag.Pilot @@ @tag.Craft</h5>
+        <h6>@tag.CreatedAt.Humanize()</h6>
+        <div class="d-flex">
+            <div class="mr-2">                
+                <IconButton Text="Show code" Href="@BuildCodeLink(tag.Id)" Icon="qr_code"></IconButton>
+			</div>
+            <div class="mr-2">  
+                <IconButton Text="Edit" Href="@BuildEditLink(tag.Id)" Icon="edit"></IconButton>
+            </div>
+            <IconButton Appearance="Warning" Text="Delete" Href="@BuildEditLink(tag.Id)" Icon="delete"></IconButton>
+		</div>        
+    </div>
+</div>
+}
+
+<style>
+
+</style>
+
+@code {
+    private IEnumerable<Shot> Tags = new List<Shot>();
+
+    protected override async Task OnInitializedAsync() => Tags = (await ShotStore.Get()).OrderByDescending(shot => shot.CreatedAt);
+
+    private string BuildEditLink(Guid id) => $"/shots/{id.ToString().ToUpper()}/edit";
+
+    private string BuildCodeLink(Guid id) => $"/shots/{id.ToString().ToUpper()}/code";
+}

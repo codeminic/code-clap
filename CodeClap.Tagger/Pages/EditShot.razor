@@ -1,0 +1,10 @@
+﻿@page "/shots/{id:guid}/edit"
+
+<h3>EditShot</h3>
+
+<h3>@Id</h3>
+
+@code {
+	[Parameter]
+    public Guid Id { get; set; }
+}

@@ -1,0 +1,14 @@
+﻿@page "/shots/{id:guid}/code"
+@using CodeClap.Tagger.Components
+@using QRCoder
+
+<h3>ShotCode</h3>
+
+<h3>@Id</h3>
+
+<QrCode Value="@Id.ToString()"/>
+
+@code {
+	[Parameter]
+    public Guid Id { get; set; }
+}

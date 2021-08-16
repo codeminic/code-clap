@@ -1,0 +1,32 @@
+﻿@if (Href != null) {
+	<a href="@Href" class="btn btn-@Appearance.ToLower() d-flex">
+		@if (Icon != null)
+		{				
+			<i class="material-icons mr-2">@Icon</i> 
+		}
+		@Text
+	</a>
+}
+else {
+	<button class="btn btn-@Appearance.ToLower() d-flex">
+		@if (Icon != null)
+		{				
+			<i class="material-icons mr-2">@Icon</i> 
+		}
+		@Text
+	</button>
+}
+
+@code {
+	[Parameter]
+	public string Text { get; set; } = string.Empty;
+
+	[Parameter]
+	public string Icon { get; set; } = string.Empty;
+	
+	[Parameter]
+	public string Appearance { get; set; } = "primary";
+
+	[Parameter]
+	public string? Href { get; set; } = null;
+}
